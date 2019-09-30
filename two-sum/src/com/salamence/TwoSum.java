@@ -11,7 +11,7 @@ import java.util.Map;
 public class TwoSum {
 
     /**
-     * 两数之和 3ms
+     * 两数之和
      * 遍历 nums并分别与计算与 target的差 minus，使用 map记录，
      * key为 num，value为 num下标。每次遍历计算差时查看 map(key = minus)
      * 中是否有记录,如果有则返回结果，没有则将 key = num记录进 map
@@ -38,6 +38,6 @@ public class TwoSum {
             }
         }
         // 遍历 nums都没有找到和为目标值的数组
-        throw new IllegalArgumentException("No two sum value");
+        throw new IllegalArgumentException("No two sum");
     }
 }
