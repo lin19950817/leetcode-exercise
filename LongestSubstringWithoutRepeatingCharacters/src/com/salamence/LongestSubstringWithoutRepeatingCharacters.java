@@ -15,35 +15,35 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @author lin19 lin_hehe@qq.com 2019-10-11 22:21
      */
     public int lengthOfLongestSubstring(String s) {
-       /* boolean[] records = new boolean[128];
+        int[] records = new int[128];
         int length = s.length();
         int max = 0;
         int sum = 0;
         for (int i = 0; i < length; i++) {
             char c = s.charAt(i);
-            if (records[c]) {
+            if (records[c] != -1) {
                 if (sum > max) {
                     max = sum;
                 }
                 resetRecords(records);
-                records[c] = true;
+                records[c] = i;
                 sum = 1;
             } else {
-                records[c] = true;
+                records[c] = i;
                 sum++;
             }
         }
-        return sum > max ? sum : max;*/
+        return sum > max ? sum : max;
 
-       int length = s.length();
-       int max = 0;
-       for (int i = 0; i < length; i++) {
-           int len = longestLengthOfTheSameInitials(s, i);
-           if (len > max) {
-               max = len;
-           }
-       }
-       return max;
+       // int length = s.length();
+       // int max = 0;
+       // for (int i = 0; i < length; i++) {
+           // int len = longestLengthOfTheSameInitials(s, i);
+           // if (len > max) {
+               // max = len;
+           // }
+       // }
+       // return max;
     }
 
     //
@@ -56,12 +56,16 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @param records 记录
      * @author lin19 lin_hehe@qq.com 2019-10-11 22:30
      */
-    private void resetRecords(boolean[] records) {
+    private void resetRecords(int[] records) {
         for (int i = 0; i < records.length; i++) {
-            if (records[i]) {
-                records[i] = false;
+            if (records[i] != -1) {
+                records[i] = -1;
             }
         }
+    }
+    
+    private void resetRecordsOfBeforeSameInitial(int[] records, ) {
+        
     }
 
     /**
