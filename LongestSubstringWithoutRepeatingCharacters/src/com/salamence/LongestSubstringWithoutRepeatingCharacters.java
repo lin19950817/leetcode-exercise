@@ -9,41 +9,35 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
     /**
      * 无重复字符的最长子串
+     *      14ms
      *
      * @param s 字符串
      * @return int
      * @author lin19 lin_hehe@qq.com 2019-10-11 22:21
      */
     public int lengthOfLongestSubstring(String s) {
+        char[] chars = s.toCharArray();
         int[] records = new int[128];
-        int length = s.length();
+        resetRecords(records);
         int max = 0;
         int sum = 0;
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < chars.length; i++) {
             char c = s.charAt(i);
             if (records[c] != -1) {
                 if (sum > max) {
                     max = sum;
                 }
-                resetRecords(records);
-                records[c] = i;
                 sum = 1;
+//                i = records[c] + 1;
+//                resetRecords(records);
+//                records[chars[i]] = i;
+                resetPre(chars, records, i, sum);
             } else {
-                records[c] = i;
                 sum++;
             }
+            records[c] = i;
         }
         return sum > max ? sum : max;
-
-       // int length = s.length();
-       // int max = 0;
-       // for (int i = 0; i < length; i++) {
-           // int len = longestLengthOfTheSameInitials(s, i);
-           // if (len > max) {
-               // max = len;
-           // }
-       // }
-       // return max;
     }
 
     //
@@ -63,30 +57,27 @@ public class LongestSubstringWithoutRepeatingCharacters {
             }
         }
     }
-    
-    private void resetRecordsOfBeforeSameInitial(int[] records, ) {
-        
+
+    private void resetPre(char[] chars, int[] records, int i, int sum) {
+        i = records[chars[i]];
+        while (sum-- >= 0) {
+            records[i--] = -1;
+        }
     }
 
-    /**
-     * 从下标 startSubscript开始与首字母相同的最长子串
-     *
-     * @param s 字符串
-     * @param startSubscript 开始下标，首字母的下标
-     * @return int
-     * @author lin19 lin_hehe@qq.com 2019-10-11 23:06
-     */
-    private int longestLengthOfTheSameInitials(String s, int startSubscript) {
-        int length = s.length();
-        if (startSubscript >= length) {
-            throw new IllegalArgumentException("start subscript bigger than length of string");
-        }
-        char initial = s.charAt(startSubscript);
-        for (int i = startSubscript + 1; i < length; i++) {
-            if (s.charAt(i) == initial) {
-                return i - startSubscript;
+    private int hehe(String s) {
+        int maxLength = 0;
+        char[] chars = s.toCharArray();
+        int leftIndex = 0;
+        for (int j = 0; j < chars.length; j++) {
+            for (int innerIndex = leftIndex; innerIndex < j; innerIndex++) {
+                if (chars[innerIndex] == chars[j]) {
+                    maxLength = Math.max(maxLength, j - leftIndex);
+                    leftIndex = innerIndex + 1;
+                    break;
+                }
             }
         }
-        return length - startSubscript;
+        return Math.max(chars.length - leftIndex, maxLength);
     }
 }
