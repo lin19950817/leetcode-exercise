@@ -1,11 +1,31 @@
-package com.salamence;
+package com.lzn;
 
 /**
  * 无重复字符的最长子串
  *
- * @author lin19 lin_hehe@qq.com 2019/10/11 22:20
+ * @author LinZhenNan lin.zhennan@hand-china.com 2019/10/21 16:50
  */
 public class LongestSubstringWithoutRepeatingCharacters {
+    // 5ms
+    public int test(String s) {
+        char[] chars = s.toCharArray();
+        int[] records = new int[128];
+        resetRecords(records);
+        int flag = 0;
+        int max = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (records[chars[i]] >= flag && records[chars[i]] != -1) {
+                int diff = i - flag;
+                if (diff > max) {
+                    max = diff;
+                }
+                flag = records[chars[i]] + 1;
+            }
+            records[chars[i]] = i;
+        }
+        int diff = chars.length - flag;
+        return diff > max ? diff : max;
+    }
 
     /**
      * 无重复字符的最长子串
