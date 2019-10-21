@@ -8,27 +8,29 @@ package com.lzn;
 public class Main {
 
     public static void main(String[] args) {
-        String s1 = "abcabcbb";
-        String s2 = "bbbbb";
-        String s3 = "pwwkew";
-        String s4 = "aab";
-        String s5 = "dvdf";
-        LongestSubstringWithoutRepeatingCharacters lswrc = new LongestSubstringWithoutRepeatingCharacters();
-//        System.out.println(lswrc.lengthOfLongestSubstring(s1));
-//        System.out.println(lswrc.lengthOfLongestSubstring(s2));
-//        System.out.println(lswrc.lengthOfLongestSubstring(s3));
-//        System.out.println(lswrc.lengthOfLongestSubstring(s4));
-//        System.out.println(lswrc.lengthOfLongestSubstring(s5));
+        String q1 = "abcabcbb";
+        String q2 = "bbbbb";
+        String q3 = "pwwkew";
+        String q4 = "aab";
+        String q5 = "dvdf";
 
-        System.out.println(lswrc.test("abc"));
-        System.out.println(lswrc.test("aa"));
-        System.out.println(lswrc.test(" "));
-        System.out.println(lswrc.test(s1));
-        System.out.println(lswrc.test(s2));
-        System.out.println(lswrc.test(s3));
-        System.out.println(lswrc.test(s4));
-        System.out.println(lswrc.test(s5));
+        int a1 = 3;
+        int a2 = 1;
+        int a3 = 3;
+        int a4 = 2;
+        int a5 = 3;
+
+        LongestSubstringWithoutRepeatingCharacters lswrc = new LongestSubstringWithoutRepeatingCharacters();
+        isOk(lswrc.lengthOfLongestSubstring(q1), a1);
+        isOk(lswrc.lengthOfLongestSubstring(q2), a2);
+        isOk(lswrc.lengthOfLongestSubstring(q3), a3);
+        isOk(lswrc.lengthOfLongestSubstring(q4), a4);
+        isOk(lswrc.lengthOfLongestSubstring(q5), a5);
     }
 
-
+    public static void isOk(int input, int output) {
+        if (input == output) {
+            throw new RuntimeException("input : " + input + "\t output : " + output);
+        }
+    }
 }

@@ -3,11 +3,18 @@ package com.lzn;
 /**
  * 无重复字符的最长子串
  *
- * @author LinZhenNan lin.zhennan@hand-china.com 2019/10/21 16:50
+ * @author LinZhenNan lin_hehe@qq.com 2019/10/21 16:50
  */
 public class LongestSubstringWithoutRepeatingCharacters {
-    // 5ms
-    public int test(String s) {
+    /**
+     * 无重复字符的最长子串
+     *  5ms
+     *
+     * @param s 字符串
+     * @author LinZhenNan lin_hehe@qq.com 2019-10-21 21:32
+     * @return int
+     */
+    public int lengthOfLongestSubstring(String s) {
         char[] chars = s.toCharArray();
         int[] records = new int[128];
         resetRecords(records);
@@ -27,39 +34,6 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return diff > max ? diff : max;
     }
 
-    /**
-     * 无重复字符的最长子串
-     *      14ms
-     *
-     * @param s 字符串
-     * @return int
-     * @author lin19 lin_hehe@qq.com 2019-10-11 22:21
-     */
-    public int lengthOfLongestSubstring(String s) {
-        char[] chars = s.toCharArray();
-        int[] records = new int[128];
-        resetRecords(records);
-        int max = 0;
-        int sum = 0;
-        for (int i = 0; i < chars.length; i++) {
-            char c = s.charAt(i);
-            if (records[c] != -1) {
-                if (sum > max) {
-                    max = sum;
-                }
-                sum = 1;
-//                i = records[c] + 1;
-//                resetRecords(records);
-//                records[chars[i]] = i;
-                resetPre(chars, records, i, sum);
-            } else {
-                sum++;
-            }
-            records[c] = i;
-        }
-        return sum > max ? sum : max;
-    }
-
     //
     // 私有方法
     // ------------------------------------------------------------------------------
@@ -68,7 +42,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * 重置 records
      *
      * @param records 记录
-     * @author lin19 lin_hehe@qq.com 2019-10-11 22:30
+     * @author LinZhenNan lin_hehe@qq.com 2019-10-11 22:30
      */
     private void resetRecords(int[] records) {
         for (int i = 0; i < records.length; i++) {
@@ -78,13 +52,8 @@ public class LongestSubstringWithoutRepeatingCharacters {
         }
     }
 
-    private void resetPre(char[] chars, int[] records, int i, int sum) {
-        i = records[chars[i]];
-        while (sum-- >= 0) {
-            records[i--] = -1;
-        }
-    }
 
+    // 第一名 code
     private int hehe(String s) {
         int maxLength = 0;
         char[] chars = s.toCharArray();
