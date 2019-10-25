@@ -2,6 +2,7 @@ package com.lzn;
 
 /**
  * 整数反转
+ *  3ms
  *
  * @author LinZhenNan lin_hehe@qq.com 2019/10/24 23:04
  */
@@ -21,29 +22,43 @@ public class ReverseInteger {
         }
         StringBuilder sb = new StringBuilder();
         int last = chars.length - 1;
-        if (max.length > chars.length) {
-
-        } else if (max.length == chars.length) {
-            for (int i = last; i > 0; i--) {
-                if (chars[i] > max[last - i]) {
-                    return 0;
-                }
-            }
-            if (isPositive) {
-                if (chars[0] > max[0]) {
-                    return 0;
-                }
-            } else {
-                if (chars[0] > max[0] + 1) {
-                    return 0;
-                }
-                sb.append('-');
-            }
-        } else {
-            return 0;
-        }
+        // 尾部是否为零
+        boolean tailZero = true;
         for (int i = last; i >= 0; i--) {
-            sb.append(chars[last]);
+            if (tailZero && chars[i] != '0') {
+                tailZero = false;
+            }
+            if (!tailZero) {
+                sb.append(chars[i]);
+            }
+        }
+
+        // 是否溢出
+        chars = sb.toString().toCharArray();
+        // 空字符串返回 0
+        if (0 == sb.length() || chars.length > max.length) {
+            return 0;
+        } else if (chars.length == max.length) {
+            boolean equal = true;
+            for (int i = 0; i < chars.length; i++) {
+                if (chars[i] > max[i]) {
+                    return 0;
+                } else if (chars[i] < max[i]) {
+                    equal = false;
+                    break;
+                }
+            }
+            if (equal) {
+                last = max.length - 1;
+                // 判断是否溢出。补码，最小值的绝对值比最大值大一
+                boolean overflow = (isPositive && chars[last] > max[last]) || (!isPositive && chars[last] > max[last] + 1);
+                if (overflow) {
+                    return 0;
+                }
+            }
+        }
+        if (!isPositive) {
+            sb.insert(0, '-');
         }
         return Integer.parseInt(sb.toString());
     }
