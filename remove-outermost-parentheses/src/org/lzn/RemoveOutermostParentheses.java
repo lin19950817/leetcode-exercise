@@ -20,22 +20,27 @@ public class RemoveOutermostParentheses {
         Stack<Character> stack = new Stack<>();
         // 是否左边最外层的 "("，用于判断是否删除最外层的括号
         boolean isLeftOutermost = true;
+        int sum = 0;
         // 逆向进栈
         for (int i = 0; i < len; i++) {
-            int sum = 0;
             // 判断是否左边最外层的 "("
-            if (sum == 0 && isLeftOutermost && cs[len] == '('){
+            if (sum == 0 && isLeftOutermost && cs[i] == '('){
                 isLeftOutermost = false;
                 continue;
             }
             // 判断是否右边边最外层的 ")"
-            if (sum == 0 && !isLeftOutermost && cs[len] == ')') {
+            if (sum == 0 && !isLeftOutermost && cs[i] == ')') {
                 isLeftOutermost = true;
                 continue;
             }
-            sum += cs[len] == '(' ? 1 : -1;
-            stack.push(cs[len]);
+            sum += cs[i] == '(' ? 1 : -1;
+            stack.push(cs[i]);
         }
-        return stack.toString();
+        StringBuilder sb = new StringBuilder();
+        len = stack.size();
+        for(int i = 0; i < len; i++) {
+            sb.insert(0, stack.pop());
+        }
+        return sb.toString();
     }
 }
