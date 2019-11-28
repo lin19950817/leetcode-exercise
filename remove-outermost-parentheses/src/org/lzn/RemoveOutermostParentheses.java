@@ -16,30 +16,23 @@ public class RemoveOutermostParentheses {
 
 
         char[] cs = S.toCharArray();
-        int len = cs.length;
-        Stack<Character> stack = new Stack<>();
+        StringBuffer sb = new StringBuffer();
         // 是否左边最外层的 "("，用于判断是否删除最外层的括号
         boolean isLeftOutermost = true;
         int sum = 0;
-        // 逆向进栈
-        for (int i = 0; i < len; i++) {
+        for (char c : cs) {
             // 判断是否左边最外层的 "("
-            if (sum == 0 && isLeftOutermost && cs[i] == '('){
+            if (sum == 0 && isLeftOutermost && c == '('){
                 isLeftOutermost = false;
                 continue;
             }
             // 判断是否右边边最外层的 ")"
-            if (sum == 0 && !isLeftOutermost && cs[i] == ')') {
+            if (sum == 0 && !isLeftOutermost && c == ')') {
                 isLeftOutermost = true;
                 continue;
             }
-            sum += cs[i] == '(' ? 1 : -1;
-            stack.push(cs[i]);
-        }
-        StringBuilder sb = new StringBuilder();
-        len = stack.size();
-        for(int i = 0; i < len; i++) {
-            sb.insert(0, stack.pop());
+            sum += c == '(' ? 1 : -1;
+            sb.append(c);
         }
         return sb.toString();
     }
